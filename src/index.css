@@ -7,7 +7,363 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.body {
+  color: white;
+  position: relative;
+  height: 100vh;
 }
+
+.header {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 9;
+  color: black;
+  background-color: white;
+}
+
+.header-width {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 960px;
+  margin: auto;
+  width: 95%;
+  box-sizing: border-box;
+}
+
+.header-menu .logo {
+  font-size: 28px;
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.link {
+  display: inline-block;
+  padding: 10px;
+}
+
+
+/* car */
+.car-information {
+  background: white;
+  border-radius: 15px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 20px;
+  max-width: 460px;
+  width: 96%;
+  margin: auto;
+  color: black;
+  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.car-img img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  position: absolute;
+  top: -70px;
+  width: 290px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.car-close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 25px;
+  color: green;
+}
+
+.car-info,
+.car-use {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  margin-top: 40px;
+}
+
+.car-plate {
+  width: 45%;
+}
+
+.car-model {
+  width: 55%;
+}
+
+.car-use {
+  margin-top: 30px;
+  position: relative;
+}
+
+.car-use:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  background-color: green;
+  margin: auto;
+}
+
+.car-use p,
+.car-use h4 {
+  margin: 0;
+}
+
+.car-fuel {
+  width: 60%;
+  padding-left: 20px;
+  box-sizing: border-box;
+}
+
+.car-fuel h4 {
+  font-size: 20px;
+}
+
+.car-price {
+  width: 40%;
+  position: relative;
+  padding-left: 20px;
+}
+.car-price:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  background-color: green;
+  margin: auto;
+}
+
+.car-price h4 {
+  font-size: 13px;
+  color: gray;
+}
+
+.car-price u {
+  color: black;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.car-address {
+  margin-top: 30px;
+  position: relative;
+  padding-left: 20px;
+}
+.car-address:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  background-color: green;
+  margin: auto;
+}
+.car-address:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background-color: green;
+  margin: auto;
+}
+.car-address p {
+  margin: 0;
+}
+
+/* car */
+
+/* car-actions */
+.car-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  font-size: 15px;
+}
+
+.unlock {
+  padding: 15px 30px;
+  border-radius: 25px;
+  color: black;
+  background: lightgray;
+  margin: 0 5px;
+}
+
+.reserve {
+  padding: 15px 20px;
+  border-radius: 25px;
+  color: white;
+  background: green;
+  margin: 0 5px;
+}
+
+
+
+
+
+
+
+
+/* banner */
+
+.banner {
+  display: none;
+  background: url('./taxi.jpeg') center center no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.banner:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.banner-width {
+  max-width: 960px;
+  margin: auto;
+  width: 95%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row-reverse;
+  height: 100vh;
+}
+
+.banner-img {
+  display: block;
+  margin-right: -100px;
+  display: none;
+}
+
+.banner-text {
+  font-size: 50px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  text-align: center;
+  letter-spacing: -0.3px;
+}
+
+.banner-text strong {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 25px;
+  display: block;
+}
+
+
+.banner-text a {
+  font-size: 18px;
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 22px;
+  border: 2px solid white;
+  font-weight: 400;
+  margin: 0 3px;
+  text-align: center;
+}
+/* banner */
+
+
+/* utils */
+
+.d-flex {
+  display: flex;
+  justify-content: center;
+}
+.green {
+  color: green;
+}
+
+
+/*  como funciona */
+
+.how_it_works {
+  display: none;
+  height: 100vh;
+  background: white;
+  padding: 40px 0;
+}
+
+.how_it_works_width {
+  max-width: 960px;
+  width: 95%;
+  margin: auto;
+}
+
+.how_it_works_items {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.how_it_works_item {
+  border-radius: 22px;
+  color: white;
+  width: 29%;
+  overflow: hidden;
+  position: relative;
+}
+
+.how_it_works_item img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.how_it_works_item .text {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+
+.how_it_works_item .title {
+  font-size: 23px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+/*  como funciona */
+
+/* map */
+
+.map {
+  position: absolute;
+  height: 97vh;
+}
+
+/* map */
