@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #323436;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -35,4 +35,87 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.logo-white {
+  color: white;
+  font-size: 25px;
+  position: absolute;
+  top: 20px;
+  right: 0;
+  left: 0;
+  margin: auto;
+  text-align: center;
+}
+
+/* login */
+.login {
+  background: #61d341;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9;
+}
+
+.login-container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 90%;
+  position: relative;
+  max-width: 310px;
+  margin: auto;
+  width: 100%;
+}
+
+.login-container h4 {
+  font-size: 35px;
+  padding-left: 10px;
+  margin-bottom: 40px;
+  text-align: left;
+  transition: .25 ease;
+}
+
+.login-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  font-size: 25px;
+  z-index: 9;
+}
+
+.login-container .primary {
+  border: 1px solid #61d341;
+  color: #61d341;
+  background-color: white;
+  text-align: center;
+  font-weight: 600;
+}
+
+.login-container .primary:hover {
+  border: 1px solid #61d341;
+  color: #61d341;
+}
+
+.login-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 10%;
+  position: relative;
+  max-width: 310px;
+  margin: auto;
+  width: 100%;
+  color: white;
+  border-top: 1px solid white;
+}
+
+.login-bottom a {
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
 }

@@ -21,7 +21,7 @@ body {
   right: 0;
   margin: auto;
   z-index: 9;
-  color: black;
+  color: #323436;
   background-color: white;
 }
 
@@ -31,13 +31,13 @@ body {
   align-items: center;
   max-width: 960px;
   margin: auto;
-  width: 95%;
+  width: 90%;
   box-sizing: border-box;
 }
 
 .header-menu .logo {
   font-size: 28px;
-  color: black;
+  color: #323436;
   text-decoration: none;
   font-weight: bold;
 }
@@ -59,7 +59,7 @@ body {
   max-width: 460px;
   width: 96%;
   margin: auto;
-  color: black;
+  color: #323436;
   box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
   padding: 20px;
   box-sizing: border-box;
@@ -82,7 +82,7 @@ body {
   top: 10px;
   right: 20px;
   font-size: 25px;
-  color: green;
+  color: #61d341;
 }
 
 .car-info,
@@ -98,7 +98,7 @@ body {
 }
 
 .car-model {
-  width: 55%;
+  width: 44%;
 }
 
 .car-use {
@@ -114,7 +114,7 @@ body {
   left: 0;
   width: 10px;
   height: 10px;
-  background-color: green;
+  background-color: #61d341;
   margin: auto;
 }
 
@@ -146,7 +146,7 @@ body {
   left: 0;
   width: 10px;
   height: 10px;
-  background-color: green;
+  background-color: #61d341;
   margin: auto;
 }
 
@@ -156,7 +156,7 @@ body {
 }
 
 .car-price u {
-  color: black;
+  color: #323436;
   font-size: 20px;
   text-decoration: none;
 }
@@ -174,7 +174,7 @@ body {
   left: 0;
   width: 10px;
   height: 10px;
-  background-color: green;
+  background-color: #61d341;
   margin: auto;
 }
 .car-address:after {
@@ -185,7 +185,7 @@ body {
   right: 0;
   width: 10px;
   height: 10px;
-  background-color: green;
+  background-color: #61d341;
   margin: auto;
 }
 .car-address p {
@@ -203,20 +203,36 @@ body {
   font-size: 15px;
 }
 
-.unlock {
-  padding: 15px 30px;
-  border-radius: 25px;
-  color: black;
-  background: lightgray;
-  margin: 0 5px;
-}
-
-.reserve {
+.btn {
   padding: 15px 20px;
   border-radius: 25px;
-  color: white;
-  background: green;
   margin: 0 5px;
+  cursor: pointer;
+}
+
+.secondary {
+  color: #61d341;
+  border: 2px solid #61d341;
+  font-weight: 500;
+  transition: .25s ease;
+}
+.secondary:hover {
+  color: white;
+  border: 2px solid white;
+  background-color: #61d341;;
+}
+
+.primary {
+  color: white;
+  background: #61d341;
+  font-weight: 500;
+  transition: .25s linear;
+  border: 2px solid transparent;
+}
+.primary:hover {
+  color: #61d341;
+  background: white;
+  border: 2px solid #61d341;
 }
 
 
@@ -300,8 +316,11 @@ body {
   display: flex;
   justify-content: center;
 }
-.green {
-  color: green;
+.#61d341 {
+  color: #61d341;
+}
+.d-none {
+  display: none;
 }
 
 
@@ -363,7 +382,8 @@ body {
 
 .map {
   position: absolute;
-  height: 97vh;
+  height: 100vh;
+  width: 100%;
 }
 
 /* map */
