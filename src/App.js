@@ -22,6 +22,7 @@ function App() {
       setUser({email})
     }
     getUsersFirebase();
+
   }, [isLogin]);
 
   const getUsersFirebase = () => {
