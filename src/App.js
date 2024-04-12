@@ -3,6 +3,7 @@ import auto from './t-cross.png'
 import { useEffect, useState } from 'react';
 import {APIProvider, Map} from '@vis.gl/react-google-maps';
 import { auth, firestore, getUsers, googleAuthProvider, localPersistence } from './firebase'
+import { environment } from './environments/environment';
 
 function App() {
 
@@ -18,9 +19,9 @@ function App() {
   useEffect(() => {
     
     console.log(email)
-    if (email) {
+    if (email != null) {
       setUser({email})
-    }
+    } 
     getUsersFirebase();
 
   }, [isLogin]);
@@ -61,8 +62,13 @@ function App() {
   }
 
   const reserve = () => {
-    setIsLogin(true)
-    console.log('reserve')
+    console.log(email)
+    if (email == '') {
+      setIsLogin(true)
+    } else {
+      console.log('2')
+
+    }
   }
 
   const loginClose = () => {
@@ -102,7 +108,7 @@ function App() {
   return (
     <div className="body">
         <div className='map'>
-          <APIProvider apiKey={'AIzaSyCOIG6y-t0daQC7lyIcRV1lmJZ_EJg2nOM'}>
+          <APIProvider apiKey={environment.clientId}>
             <Map
               defaultCenter={{lat: -12.1460953, lng: -76.9863282}}
               defaultZoom={10}
@@ -115,7 +121,7 @@ function App() {
         <header className="header">
           <div className='header-width'>
 
-            <div className='call'>
+            <div className='user'>
               {user && user.email ? <p>{user.email}</p> : <p>menu</p>}
             </div>
 
