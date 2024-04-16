@@ -11,6 +11,7 @@ body {
   color: white;
   position: relative;
   height: 100vh;
+  display: flex;
 }
 
 .header {
@@ -302,7 +303,6 @@ body {
   display: block;
 }
 
-
 .banner-text a {
   font-size: 18px;
   color: white;
@@ -316,22 +316,7 @@ body {
 }
 /* banner */
 
-
-/* utils */
-
-.d-flex {
-  display: flex;
-  justify-content: center;
-}
-.#61d341 {
-  color: #61d341;
-}
-.d-none {
-  display: none;
-}
-
-
-/*  como funciona */
+/* como funciona */
 
 .how_it_works {
   display: none;
@@ -383,7 +368,7 @@ body {
   font-weight: 700;
   margin-bottom: 20px;
 }
-/*  como funciona */
+/* como funciona */
 
 /* map */
 
@@ -394,3 +379,13 @@ body {
 }
 
 /* map */
+
+
+
+
+
+
+
+
+
+

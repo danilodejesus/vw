@@ -2,28 +2,26 @@ import './App.css';
 import auto from './t-cross.png'
 import { useEffect, useState } from 'react';
 import {APIProvider, Map} from '@vis.gl/react-google-maps';
-import { auth, firestore, getUsers, googleAuthProvider, localPersistence } from './firebase'
-import { environment } from './environments/environment';
+import { auth, firestore, getUsers, googleAuthProvider, insertUser, localPersistence } from './firebase'
 
 function App() {
-
-  // declare var google: any ;
-
   const [isOpenCarPopup, setIsOpenCarPopup] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
+  const [pay, setPay] = useState(false);
+  const [deposit, setDeposit] = useState(false);
+  const [isSucess, setIsSucess] = useState(false);
+  const [isValidPay, setIsValidPay] = useState();
   const [state, setState] = useState();
   const [user, setUser] = useState({uid: '', name: ''});
   const email = window.localStorage.getItem('email') || '';
   const [isRegister, setIsRegister] = useState(false);
 
-  useEffect(() => {
-    
+  useEffect(() => {    
     console.log(email)
     if (email != null) {
       setUser({email})
     } 
     getUsersFirebase();
-
   }, [isLogin]);
 
   const getUsersFirebase = () => {
@@ -42,16 +40,14 @@ function App() {
     return unsubscribe;
   }
 
-
   const carClosePopup = () => {
     setIsOpenCarPopup(true)
     console.log('click')
   }
 
   const saveUser = async (email, uid) => {
-    // const user = insertUser(email, uid)
     const batch = firestore.batch();
-    batch.set(firestore.collection('users').doc(email), {uid})
+    batch.set(firestore.collection('users').doc(email), {uid: uid, isValidPay: false})
     await batch.commit();
     return true;
   }
@@ -62,18 +58,22 @@ function App() {
   }
 
   const reserve = () => {
-    console.log(email)
+    // console.log(email)
     if (email == '') {
       setIsLogin(true)
     } else {
-      console.log('2')
-
+      console.log('debo pedir pago, efectivo tarjeta')
+      setPay(true)
     }
   }
 
   const loginClose = () => {
     setIsLogin(false)
     // const google;
+  }
+
+  const payClose = () => {
+    setPay(false)
   }
 
   const login = () => {
@@ -84,12 +84,12 @@ function App() {
           if (uidSelected.length >= 1) {
             setState(res.user)
             window.localStorage.setItem('email', res.user.email)
-            setIsLogin(false)
           } else if (uidSelected.length === 0) {
             setState(res.user)
           }
           setUser({name: res.user.email, uid: res.user.uid})
           saveUser(res.user.email, res.user.uid)
+          setIsLogin(false)
         }).catch((error) => {
           console.log(error)
         })
@@ -105,10 +105,44 @@ function App() {
     setUser(email)
   }
 
+  const depositCash = () => {
+    setDeposit(true)
+  }
+
+  const creditCard = () => {  
+  }
+
+  const cashClose = () => {
+    setDeposit(false)
+  }
+
+  const successClose = () => {
+    setIsSucess(false)
+  }
+
+  const handleSubmit = (e) => {
+    console.log('form enviado', isValidPay)
+    e.preventDefault();
+    setDeposit(false)
+    setPay(false)
+    setIsSucess(true)
+
+    setTimeout(() => {
+      setIsSucess(false)
+    }, 4000);
+
+    insertUser(email, isValidPay)
+  }
+  
+  const handleChange = (e) => {
+    console.log(e.target.value)
+    setIsValidPay(e.target.value)
+  }
+
   return (
     <div className="body">
         <div className='map'>
-          <APIProvider apiKey={environment.clientId}>
+          <APIProvider apiKey={'AIzaSyCOIG6y-t0daQC7lyIcRV1lmJZ_EJg2nOM'}>
             <Map
               defaultCenter={{lat: -12.1460953, lng: -76.9863282}}
               defaultZoom={10}
@@ -203,15 +237,65 @@ function App() {
         </div>
 
         <div className={`login ${isLogin ? '' : 'd-none'}`}>
+          <h5 className='logo-white'>DanTaxi</h5>
           <div className='login-container'>
             <div className='login-close' onClick={loginClose}>x</div>
-            <h5 className='logo-white'>DanTaxi</h5>
             <h4>{isRegister ? 'Register' : 'Log in'}</h4>
             <div className='btn primary' onClick={login}>{isRegister ? 'Registe in Google' : 'Log in Google'}</div>
           </div>
           <div className='login-bottom'>
             <h5>{isRegister ? 'Reservar ahora ->' : 'Not registered yet?'}</h5>
             <a onClick={register}>{isRegister ? 'Log in' : 'Sign up'}</a>
+          </div>
+        </div>
+
+        <div className={`pay ${pay ? '' : 'd-none'}`}>
+          <h5 className='logo-white'>DanTaxi</h5>
+          <div className={`pay-container ${deposit ? 'd-none' : ''}`}>
+            <div className='pay-close' onClick={payClose}>x</div>
+            <h3 className='pay-white'>Formulario de pago</h3>
+            <p>
+              Necesitas depositar una garantía de 500 soles que serán retornados a tu cuenta al finalizar el alquiler
+            </p>
+            <div className='pay-buttons'>
+              <div className='pay-button' onClick={depositCash}>Depositar</div>
+              <div className='pay-button' onClick={creditCard}>Tarjeta débito, crédito</div>
+            </div>
+          </div>
+
+          <div className={`pay-container ${deposit ? '' : 'd-none'}`}>
+            <div className='pay-close' onClick={cashClose}>x</div>
+            <p>Haz tu depósito a los siguientes destinos disponibles:</p>
+            <ul>
+              <li>
+                Bcp: 999 999 999 <br/>
+                Interbank: 999 999 999
+              </li>
+              <li>
+                Yape: 999 999 999
+              </li>
+              <li>
+                Plin: 999 999 999
+              </li>
+            </ul>
+            <div className='pay-operation'>
+              <form onSubmit={handleSubmit}>
+                <label>Código de operación</label>
+                <input placeholder='Código' onChange={handleChange}/>
+                <div>ó</div>
+                <input type='file' />
+                <button>Enviar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div className={`pay-success ${isSucess ? '' : 'd-none'}`}>
+          <h5 className='logo-white'>DanTaxi</h5>
+          <div className={`pay-container ${deposit ? 'd-none' : ''}`}>
+            <div className='pay-close' onClick={successClose}>x</div>
+            <p>Estamos revisando tu pago.</p>
+            <p>Elige tu horario de alguiler</p>
           </div>
         </div>
 

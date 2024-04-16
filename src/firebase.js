@@ -32,7 +32,7 @@ export const insertUser = (email, observer) => {
     return firestore
       .collection('users')
       .doc(email)
-      .update({uid: observer})
+      .update({isValidPay: observer})
   } catch (err) {
     console.error(err)
   }

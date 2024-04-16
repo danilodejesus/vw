@@ -82,7 +82,7 @@
 .login-close {
   position: absolute;
   top: 20px;
-  right: 20px;
+  right: 0px;
   cursor: pointer;
   font-size: 25px;
   z-index: 9;
@@ -119,3 +119,128 @@
   color: white;
   cursor: pointer;
 }
+
+/* pay */
+.pay {
+  position: relative;
+  z-index: 9;
+  height: 100vh;
+  width: 100vw;
+  background: #61d341;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pay-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 90%;
+  position: relative;
+  max-width: 310px;
+  margin: auto;
+  width: 100%;
+}
+
+.pay-close {
+  position: absolute;
+  top: 5px;
+  right: 0px;
+  cursor: pointer;
+  font-size: 25px;
+  z-index: 9;
+}
+
+.pay-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.pay-button {
+  border: 2px solid white;
+  color: white;
+  border-radius: 13px;
+  padding: 10px 20px;
+  font-size: 14px;
+  transition: .25s ease;
+  cursor: pointer;
+}
+
+.pay-button:hover {
+  border: 2px solid #61d341;
+  color: #61d341;
+  background-color: white;
+  border-radius: 13px;
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+.pay-operation {
+  margin-top: 20px;
+}
+
+.pay-operation form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pay-operation label {
+  font-size: 17px;
+  padding-top: 8px;
+  margin-bottom: 8px;
+}
+
+.pay-operation input {
+  margin: 10px 0;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: none;
+  padding: 6px;
+  text-align: center;
+}
+
+.pay-operation button {
+  margin-top: 8px;
+  border: none;
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: #61d341;
+  font-weight: 600;
+}
+
+/* pay */
+.pay-success {
+  position: relative;
+  z-index: 9;
+  height: 25vh;
+  width: 40vw;
+  background: #61d341;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  border-radius: 12px;
+}
+
+
+
+/* utils */
+
+.d-flex {
+  display: flex;
+  justify-content: center;
+}
+.green {
+  color: #61d341;
+}
+.d-none {
+  display: none;
+}
+
