@@ -4,6 +4,11 @@ import { useEffect, useState } from 'react';
 import {APIProvider, Map} from '@vis.gl/react-google-maps';
 import { auth, firestore, getUsers, googleAuthProvider, insertUser, localPersistence } from './firebase'
 
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { LocalizationProvider } from '@mui/x-date-pickers-pro';
+import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
+import { DateTimeRangePicker } from '@mui/x-date-pickers-pro/DateTimeRangePicker';
+
 function App() {
   const [isOpenCarPopup, setIsOpenCarPopup] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
@@ -16,8 +21,11 @@ function App() {
   const email = window.localStorage.getItem('email') || '';
   const [isRegister, setIsRegister] = useState(false);
 
+  const [value, setValue] = useState();
+
   useEffect(() => {    
     console.log(email)
+    console.log(value)
     if (email != null) {
       setUser({email})
     } 
@@ -127,16 +135,23 @@ function App() {
     setPay(false)
     setIsSucess(true)
 
-    setTimeout(() => {
-      setIsSucess(false)
-    }, 4000);
+    // setTimeout(() => {
+    //   setIsSucess(false)
+    // }, 4000);
 
     insertUser(email, isValidPay)
+    setIsValidPay('')
   }
   
   const handleChange = (e) => {
     console.log(e.target.value)
     setIsValidPay(e.target.value)
+  }
+
+  const handleChangeCalendar = (e) => {
+    console.log(e)
+    // (newValue) => setValue(newValue)
+    // setValue(e )
   }
 
   return (
@@ -259,7 +274,7 @@ function App() {
             </p>
             <div className='pay-buttons'>
               <div className='pay-button' onClick={depositCash}>Depositar</div>
-              <div className='pay-button' onClick={creditCard}>Tarjeta débito, crédito</div>
+              <div className='pay-button disabled' onClick={creditCard}>Tarjeta débito, crédito</div>
             </div>
           </div>
 
@@ -268,8 +283,10 @@ function App() {
             <p>Haz tu depósito a los siguientes destinos disponibles:</p>
             <ul>
               <li>
-                Bcp: 999 999 999 <br/>
-                Interbank: 999 999 999
+                BCP soles corriente: 999 999 999
+              </li>
+              <li>
+                Interbank soles corriente: 999 999 999
               </li>
               <li>
                 Yape: 999 999 999
@@ -281,10 +298,9 @@ function App() {
             <div className='pay-operation'>
               <form onSubmit={handleSubmit}>
                 <label>Código de operación</label>
-                <input placeholder='Código' onChange={handleChange}/>
+                <input placeholder='Código' onChange={handleChange} value={isValidPay}/>
                 <div>ó</div>
-                <input type='file' />
-                <button>Enviar</button>
+                <button >Enviar</button>
               </form>
             </div>
           </div>
@@ -296,6 +312,18 @@ function App() {
             <div className='pay-close' onClick={successClose}>x</div>
             <p>Estamos revisando tu pago.</p>
             <p>Elige tu horario de alguiler</p>
+            <div>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer components={['DateTimeRangePicker']}>
+                  <DateTimeRangePicker 
+                    localeText={{ start: 'Empieza', end: 'Termina' }}
+                    value={value}
+                    onChange={handleChangeCalendar} />
+                </DemoContainer>
+              </LocalizationProvider>
+            </div>
+            <p>Precio aproximado:</p>
+            <p>s/. 200.00</p>
           </div>
         </div>
 

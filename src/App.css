@@ -138,15 +138,15 @@
   justify-content: center;
   height: 90%;
   position: relative;
-  max-width: 310px;
+  max-width: 340px;
   margin: auto;
   width: 100%;
 }
 
 .pay-close {
   position: absolute;
-  top: 5px;
-  right: 0px;
+  top: -15px;
+  right: 10px;
   cursor: pointer;
   font-size: 25px;
   z-index: 9;
@@ -176,6 +176,18 @@
   border-radius: 13px;
   padding: 10px 20px;
   font-size: 14px;
+}
+
+.pay-button.disabled {
+  cursor: inherit;
+  background: gray;
+  border: 2px solid transparent;
+}
+
+.pay-button.disabled:hover {
+  background: gray;
+  border: 2px solid transparent;
+  color: white;
 }
 
 .pay-operation {
@@ -219,7 +231,7 @@
 .pay-success {
   position: relative;
   z-index: 9;
-  height: 25vh;
+  padding: 50px 0 20px 0;
   width: 40vw;
   background: #61d341;
   display: flex;
@@ -227,8 +239,14 @@
   align-items: center;
   margin: auto;
   border-radius: 12px;
+  transition: .25s linear;
+  display: flex;
 }
 
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input,
+.css-1jy569b-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
+  color: white !important;
+}
 
 
 /* utils */
