@@ -16,6 +16,8 @@ function App() {
   const [deposit, setDeposit] = useState(false);
   const [isSucess, setIsSucess] = useState(false);
   const [isValidPay, setIsValidPay] = useState();
+  const [documents, setDocuments] = useState(false);
+  const [thanks, setThanks] = useState(false);
   const [state, setState] = useState();
   const [user, setUser] = useState({uid: '', name: ''});
   const email = window.localStorage.getItem('email') || '';
@@ -61,13 +63,18 @@ function App() {
   }
 
   const unlock = () => {
-    setIsLogin(true)
-    console.log('unlock')
+    // console.log(email)
+    if (email === '') {
+      setIsLogin(true)
+    } else {
+      console.log('unlock')
+      setPay(true)
+    }
   }
 
   const reserve = () => {
     // console.log(email)
-    if (email == '') {
+    if (email === '') {
       setIsLogin(true)
     } else {
       console.log('debo pedir pago, efectivo tarjeta')
@@ -128,6 +135,11 @@ function App() {
     setIsSucess(false);
   }
 
+  const documentsClose = () => {
+    setDocuments(false);
+    setThanks(true);
+  }
+
   const handleSubmit = (e) => {
     console.log('form enviado', isValidPay)
     e.preventDefault();
@@ -152,6 +164,15 @@ function App() {
     console.log(e)
     // (newValue) => setValue(newValue)
     // setValue(e )
+  }
+
+  const goDocuments = (e) => {
+    setDocuments(true)
+    setIsSucess(false)
+  }
+
+  const thanksClose = (e) => {
+    setThanks(false)
   }
 
   return (
@@ -296,8 +317,8 @@ function App() {
               <form onSubmit={handleSubmit}>
                 <label>Código de operación</label>
                 <input placeholder='Código' onChange={handleChange} value={isValidPay}/>
-                <div>ó</div>
-                <button >Enviar</button>
+                {/* <div>ó</div> */}
+                <button className='content-button'>Enviar</button>
               </form>
             </div>
           </div>
@@ -307,33 +328,57 @@ function App() {
           <h5 className='logo-white'>DanTaxi</h5>
           <div className={`pay-container ${deposit ? 'd-none' : ''}`}>
             <div className='pay-close' onClick={successClose}>x</div>
-            <p>Estamos revisando tu pago.</p>
-            <p>Elige tu horario de alguiler</p>
+            <p className='mb-0'>Estamos revisando tu pago...</p>
+            <p>Elige el <u>día</u> y <u>horario</u> de recojo del auto</p>
             <div>
               <div className="calendly-inline-widget" data-url="https://calendly.com/danilojesusv?hide_landing_page_details=1&hide_gdpr_banner=1" style={{minWidth: "320px", height: "50vh"}}></div>
-
             </div>
+            <p className='mb-0 text-center font-w-bold'>Click aquí ⬆</p>
             <p className='mt-2 mb-0'>Precio aproximado:</p>
-            <p>s/. 100.00 por día</p>
-            <button >Enviar</button>
+            <p className='mt-0'>s/. 100.00 por <u>día</u></p>
+            <button className='pay-button content-button' onClick={goDocuments}>Enviar</button>
           </div>
         </div>
 
-
-
-        <div className={`documents ${isSucess ? '' : 'd-none'}`}>
+        <div className={`documents ${documents ? '' : 'd-none'}`}>
           <h5 className='logo-white'>DanTaxi</h5>
           <div className={`pay-container ${deposit ? 'd-none' : ''}`}>
-            <div className='pay-close' onClick={successClose}>x</div>
-            <p>Estamos en el último paso</p>
-            <p>Sube estos documentos para validar tu identidad</p>
-            <div>
-              <div className="calendly-inline-widget" data-url="https://calendly.com/danilojesusv?hide_landing_page_details=1&hide_gdpr_banner=1" style={{minWidth: "320px", height: "50vh"}}></div>
-
+            <div className='pay-close' onClick={documentsClose}>x</div>
+            <p className='mb-0'>Estamos en el último paso:</p>
+            <p className='mt-0'>Sube estos <u>documentos</u> para validar tu <u>identidad:</u></p>
+            <div className='documents-box'>
+              <div className=''>
+                <p className='m-0'>DNI:</p>
+                <div>
+                  <input type='file' />
+                  <input type='file'/>
+                </div>
+              </div>
+              <div className=''>
+                <p className='m-0'>Brevete:</p>
+                <div>
+                  <input type='file' />
+                  <input type='file'/>
+                </div>
+              </div>
+              <div className=''>
+                <p className='m-0'>Antecedentes penales:</p>
+                <div>
+                  <input type='file' />
+                </div>
+              </div>
             </div>
-            <p className='mt-2 mb-0'>Precio aproximado:</p>
-            <p>s/. 100.00 por día</p>
-            <button >Enviar</button>
+            <button className='mt-2 pay-button content-button' onClick={documentsClose}>Enviar</button>
+          </div>
+        </div>
+
+        <div className={`thanks ${thanks ? '' : 'd-none'}`}>
+          <h5 className='logo-white'>DanTaxi</h5>
+          <div className={`pay-container ${deposit ? 'd-none' : ''}`}>
+            <div className='pay-close' onClick={thanksClose}>x</div>
+            <p className='mb-0'>Tu reserva se ha generado con éxito.</p>
+            <p className='mt-0'>Recuerda <u>revisar tu correo</u> para la confirmación de la reserva.</p>
+            <button className='mt-2 pay-button content-button' onClick={thanksClose}>Cerrar</button>
           </div>
         </div>
 

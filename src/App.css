@@ -232,7 +232,8 @@
   position: relative;
   z-index: 9;
   padding: 50px 0 20px 0;
-  width: 40vw;
+  width: 100vw;
+  height: 90vh;
   background: #61d341;
   display: flex;
   justify-content: center;
@@ -243,11 +244,58 @@
   display: flex;
 }
 
+.content-button {
+  color: #61d341;
+  font-weight: 600;
+  width: 130px;
+  margin: auto;
+  cursor: pointer;
+}
+
 .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input,
 .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
   color: white !important;
 }
 
+/* documents */
+.documents {
+  position: relative;
+  z-index: 9;
+  padding: 50px 0 20px 0;
+  width: 40vw;
+  background: #61d341;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  border-radius: 12px;
+  transition: .25s linear;
+  width: 100vw;
+  height: 90vh;
+}
+.documents-box div {
+  margin: 5px 0 15px 0;
+}
+
+/* documents */
+.thanks {
+  position: relative;
+  z-index: 9;
+  padding: 50px 0 20px 0;
+  width: 40vw;
+  background: #61d341;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  border-radius: 12px;
+  transition: .25s linear;
+  width: 100vw;
+  height: 90vh;
+}
+.thanks-box div {
+  margin: 5px 0 15px 0;
+}
 
 /* utils */
 
@@ -261,10 +309,24 @@
 .d-none {
   display: none;
 }
-
+.m-0 {
+  margin: 0;
+}
 .mt-2 {
   margin-top: 20px;
 }
+.mt-0 {
+  margin-top: 0px;
+}
 .mb-0 {
   margin-bottom: 0;
+}
+.text-center {
+  text-align: center;
+}
+p {
+  font-weight: 500;
+}
+.font-w-bold {
+  font-weight: bold;
 }
