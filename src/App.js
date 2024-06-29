@@ -125,7 +125,7 @@ function App() {
   }
 
   const successClose = () => {
-    setIsSucess(false)
+    setIsSucess(false);
   }
 
   const handleSubmit = (e) => {
@@ -226,14 +226,14 @@ function App() {
 
             <div className='car-use'>
               <div className='car-fuel'>
-                <p>GASOLINA</p>
+                <p>GASOLINA / GAS</p>
                 <h4>
-                  80%
+                  90%
                 </h4>
               </div>
               <div className='car-price'>
                 <p>PRECIO</p>
-                <h4><u>s/. 9,90</u> /hora.</h4>
+                <h4><u>s/. 100.00</u> /día</h4>
               </div>
             </div>
 
@@ -270,7 +270,7 @@ function App() {
             <div className='pay-close' onClick={payClose}>x</div>
             <h3 className='pay-white'>Formulario de pago</h3>
             <p>
-              Necesitas depositar una garantía de 500 soles que serán retornados a tu cuenta al finalizar el alquiler
+              Necesitas depositar una garantía de s/. 100.00 soles que serán retornados al finalizar el alquiler.
             </p>
             <div className='pay-buttons'>
               <div className='pay-button' onClick={depositCash}>Depositar</div>
@@ -283,16 +283,13 @@ function App() {
             <p>Haz tu depósito a los siguientes destinos disponibles:</p>
             <ul>
               <li>
-                BCP soles corriente: 999 999 999
+                Plin: <br/> 992 304 757
               </li>
               <li>
-                Interbank soles corriente: 999 999 999
+                Interbank soles corriente: <br/> 898 329 800 384 0
               </li>
               <li>
-                Yape: 999 999 999
-              </li>
-              <li>
-                Plin: 999 999 999
+                Interbank soles corriente CCI: <br/> 003 898 013 298 003 840 41
               </li>
             </ul>
             <div className='pay-operation'>
@@ -313,17 +310,30 @@ function App() {
             <p>Estamos revisando tu pago.</p>
             <p>Elige tu horario de alguiler</p>
             <div>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={['DateTimeRangePicker']}>
-                  <DateTimeRangePicker 
-                    localeText={{ start: 'Empieza', end: 'Termina' }}
-                    value={value}
-                    onChange={handleChangeCalendar} />
-                </DemoContainer>
-              </LocalizationProvider>
+              <div className="calendly-inline-widget" data-url="https://calendly.com/danilojesusv?hide_landing_page_details=1&hide_gdpr_banner=1" style={{minWidth: "320px", height: "50vh"}}></div>
+
             </div>
-            <p>Precio aproximado:</p>
-            <p>s/. 200.00</p>
+            <p className='mt-2 mb-0'>Precio aproximado:</p>
+            <p>s/. 100.00 por día</p>
+            <button >Enviar</button>
+          </div>
+        </div>
+
+
+
+        <div className={`documents ${isSucess ? '' : 'd-none'}`}>
+          <h5 className='logo-white'>DanTaxi</h5>
+          <div className={`pay-container ${deposit ? 'd-none' : ''}`}>
+            <div className='pay-close' onClick={successClose}>x</div>
+            <p>Estamos en el último paso</p>
+            <p>Sube estos documentos para validar tu identidad</p>
+            <div>
+              <div className="calendly-inline-widget" data-url="https://calendly.com/danilojesusv?hide_landing_page_details=1&hide_gdpr_banner=1" style={{minWidth: "320px", height: "50vh"}}></div>
+
+            </div>
+            <p className='mt-2 mb-0'>Precio aproximado:</p>
+            <p>s/. 100.00 por día</p>
+            <button >Enviar</button>
           </div>
         </div>
 

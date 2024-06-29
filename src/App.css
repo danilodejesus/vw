@@ -138,7 +138,7 @@
   justify-content: center;
   height: 90%;
   position: relative;
-  max-width: 340px;
+  max-width: 375px;
   margin: auto;
   width: 100%;
 }
@@ -262,3 +262,9 @@
   display: none;
 }
 
+.mt-2 {
+  margin-top: 20px;
+}
+.mb-0 {
+  margin-bottom: 0;
+}
