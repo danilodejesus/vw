@@ -2,12 +2,7 @@ import './App.css';
 import auto from './t-cross.png'
 import { useEffect, useState } from 'react';
 import {APIProvider, Map} from '@vis.gl/react-google-maps';
-import { auth, firestore, getUsers, googleAuthProvider, insertUser, localPersistence } from './firebase'
-
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { LocalizationProvider } from '@mui/x-date-pickers-pro';
-import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
-import { DateTimeRangePicker } from '@mui/x-date-pickers-pro/DateTimeRangePicker';
+import { auth, firestore, storage, getUsers, googleAuthProvider, insertUser, localPersistence, firebaseApp } from './firebase'
 
 function App() {
   const [isOpenCarPopup, setIsOpenCarPopup] = useState(false);
@@ -24,6 +19,9 @@ function App() {
   const [isRegister, setIsRegister] = useState(false);
 
   const [value, setValue] = useState();
+
+  const [image, setImage] = useState('');
+  const [file, setFile] = useState();
 
   useEffect(() => {    
     console.log(email)
@@ -175,6 +173,34 @@ function App() {
     setThanks(false)
   }
 
+  const handleDocs = (e) => {
+    console.log(e.target.files[0])
+    setFile(e.target.files[0])
+  }
+
+  const sendDocuments = () => {
+    if (!file) return;
+
+    const storageRef = storage.ref(`files/${file.name}`);
+    const uploadTask = storageRef.put(file);
+
+    uploadTask.on('state_changed',
+      (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        // setUploadProgress(progress);
+      },
+      (error) => {
+        console.error("Error al subir el archivo:", error);
+      },
+      () => {
+        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+          // setDownloadURL(downloadURL);
+          // saveFileURLToFirestore(downloadURL);
+        });
+      }
+    );
+  }
+
   return (
     <div className="body">
         <div className='map'>
@@ -249,12 +275,12 @@ function App() {
               <div className='car-fuel'>
                 <p>GASOLINA / GAS</p>
                 <h4>
-                  90%
+                  GNV
                 </h4>
               </div>
               <div className='car-price'>
                 <p>PRECIO</p>
-                <h4><u>s/. 100.00</u> /día</h4>
+                <h4><u>S/ 100.00</u> /día</h4>
               </div>
             </div>
 
@@ -265,7 +291,7 @@ function App() {
             </div>
 
             <div className='car-actions'>
-              <div className='btn secondary' onClick={unlock}>Desbloquear</div>
+              <div className='btn secondary' onClick={unlock}>Pedir ayuda</div>
               <div className='btn primary' onClick={reserve}>Reservar ahora!</div>
             </div>
 
@@ -350,7 +376,7 @@ function App() {
               <div className=''>
                 <p className='m-0'>DNI:</p>
                 <div>
-                  <input type='file' />
+                  <input type='file' onChange={(e) => handleDocs(e)}/>
                   <input type='file'/>
                 </div>
               </div>
@@ -364,11 +390,12 @@ function App() {
               <div className=''>
                 <p className='m-0'>Antecedentes penales:</p>
                 <div>
-                  <input type='file' />
+                  <input type="file" onChange={(e) => 
+                  { setImage(e.target.files[0]) }} />
                 </div>
               </div>
             </div>
-            <button className='mt-2 pay-button content-button' onClick={documentsClose}>Enviar</button>
+            <button className='mt-2 pay-button content-button' onClick={sendDocuments}>Enviar</button>
           </div>
         </div>
 
