@@ -2,7 +2,7 @@ import './App.css';
 import auto from './t-cross.png'
 import { useEffect, useState } from 'react';
 import {APIProvider, Map} from '@vis.gl/react-google-maps';
-import { auth, firestore, storage, getUsers, googleAuthProvider, insertUser, localPersistence, firebaseApp } from './firebase'
+import { auth, firestore, storage, getUsers, googleAuthProvider, insertUser, localPersistence } from './firebase'
 
 function App() {
   const [isOpenCarPopup, setIsOpenCarPopup] = useState(false);
@@ -20,8 +20,11 @@ function App() {
 
   const [value, setValue] = useState();
 
-  const [image, setImage] = useState('');
-  const [file, setFile] = useState();
+  const [dniA, setDniA] = useState();
+  const [dniB, setDniB] = useState();
+  const [breveteA, setBreveteA] = useState();
+  const [breveteB, setBreveteB] = useState();
+  // const [antecedentes, setAntecedentes] = useState();
 
   useEffect(() => {    
     console.log(email)
@@ -66,7 +69,6 @@ function App() {
       setIsLogin(true)
     } else {
       console.log('unlock')
-      setPay(true)
     }
   }
 
@@ -103,6 +105,7 @@ function App() {
           setUser({name: res.user.email, uid: res.user.uid})
           saveUser(res.user.email, res.user.uid)
           setIsLogin(false)
+          setPay(true)
         }).catch((error) => {
           console.log(error)
         })
@@ -173,18 +176,45 @@ function App() {
     setThanks(false)
   }
 
-  const handleDocs = (e) => {
-    console.log(e.target.files[0])
-    setFile(e.target.files[0])
-  }
+  const handleInputChangeDniA = (e) => {
+    setDniA(e.target.files[0])
+  };
+
+  const handleInputChangeDniB = (e) => {
+    setDniB(e.target.files[0])
+  };
+
+  const handleInputChangeBreveteA = (e) => {
+    setBreveteA(e.target.files[0])
+  };
+
+  const handleInputChangeBreveteB = (e) => {
+    setBreveteB(e.target.files[0])
+  };
+
+  // const handleInputChangeAntecendes = (e) => {
+  //   setAntecedentes(e.target.files[0])
+  // };
 
   const sendDocuments = () => {
-    if (!file) return;
+    if (!dniA, !dniB, !breveteA, !breveteB) return;
+    
+    const storageRefdniA = storage.ref(`files/${email}/${dniA.name}`);
+    const uploadTaskdniA = storageRefdniA.put(dniA);
 
-    const storageRef = storage.ref(`files/${file.name}`);
-    const uploadTask = storageRef.put(file);
+    const storageRefdniB = storage.ref(`files/${email}/${dniB.name}`);
+    const uploadTaskdniB = storageRefdniB.put(dniB);
+    
+    const storageRefBreveteA = storage.ref(`files/${email}/${breveteA.name}`);
+    const uploadTaskBreveteA = storageRefBreveteA.put(breveteA);
 
-    uploadTask.on('state_changed',
+    const storageRefBreveteB = storage.ref(`files/${email}/${breveteB.name}`);
+    const uploadTaskBreveteB = storageRefBreveteB.put(breveteB);
+
+    // const storageRefAnt = storage.ref(`files/${email}/${antecedentes.name}`);
+    // const uploadTaskAnt = storageRefAnt.put(antecedentes);
+
+    uploadTaskdniA.on('state_changed',
       (snapshot) => {
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         // setUploadProgress(progress);
@@ -193,12 +223,82 @@ function App() {
         console.error("Error al subir el archivo:", error);
       },
       () => {
-        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+        uploadTaskdniA.snapshot.ref?.getDownloadURL().then((downloadURL) => {
+          console.log(downloadURL)
           // setDownloadURL(downloadURL);
           // saveFileURLToFirestore(downloadURL);
         });
       }
     );
+    uploadTaskdniB.on('state_changed',
+      (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        // setUploadProgress(progress);
+      },
+      (error) => {
+        console.error("Error al subir el archivo:", error);
+      },
+      () => {
+        uploadTaskdniB.snapshot.ref?.getDownloadURL().then((downloadURL) => {
+          console.log(downloadURL)
+          // setDownloadURL(downloadURL);
+          // saveFileURLToFirestore(downloadURL);
+        });
+      }
+    );
+    uploadTaskBreveteA.on('state_changed',
+      (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        // setUploadProgress(progress);
+      },
+      (error) => {
+        console.error("Error al subir el archivo:", error);
+      },
+      () => {
+        uploadTaskBreveteA.snapshot.ref?.getDownloadURL().then((downloadURL) => {
+          console.log(downloadURL)
+          // setDownloadURL(downloadURL);
+          // saveFileURLToFirestore(downloadURL);
+        });
+      }
+    );
+    uploadTaskBreveteB.on('state_changed',
+      (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        // setUploadProgress(progress);
+      },
+      (error) => {
+        console.error("Error al subir el archivo:", error);
+      },
+      () => {
+        uploadTaskBreveteB.snapshot.ref?.getDownloadURL().then((downloadURL) => {
+          console.log(downloadURL)
+          // setDownloadURL(downloadURL);
+          // saveFileURLToFirestore(downloadURL);
+        });
+      }
+    );
+    // uploadTaskAnt.on('state_changed',
+    //   (snapshot) => {
+    //     const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    //     // setUploadProgress(progress);
+    //   },
+    //   (error) => {
+    //     console.error("Error al subir el archivo:", error);
+    //   },
+    //   () => {
+    //     storageRefAnt.snapshot.ref?.getDownloadURL().then((downloadURL) => {
+    //       console.log(downloadURL)
+    //       // setDownloadURL(downloadURL);
+    //       // saveFileURLToFirestore(downloadURL);
+    //     });
+    //   }
+    // );
+
+    setTimeout(() => {
+      setDocuments(false)
+      setThanks(true)
+    }, 2000);
   }
 
   return (
@@ -302,12 +402,12 @@ function App() {
           <h5 className='logo-white'>DanTaxi</h5>
           <div className='login-container'>
             <div className='login-close' onClick={loginClose}>x</div>
-            <h4>{isRegister ? 'Register' : 'Log in'}</h4>
-            <div className='btn primary' onClick={login}>{isRegister ? 'Registe in Google' : 'Log in Google'}</div>
+            <h4>{isRegister ? 'Regístrate' : 'Iniciar sesión'}</h4>
+            <div className='btn primary' onClick={login}>{isRegister ? 'Regístrate en Google' : 'Iniciar sesión en Google'}</div>
           </div>
           <div className='login-bottom'>
-            <h5>{isRegister ? 'Reservar ahora ->' : 'Not registered yet?'}</h5>
-            <a onClick={register}>{isRegister ? 'Log in' : 'Sign up'}</a>
+            <h5>{isRegister ? 'Reservar ahora ->' : 'No te has registrado todavía?'}</h5>
+            <a onClick={register}>{isRegister ? 'Iniciar sesión' : 'Regístrate'}</a>
           </div>
         </div>
 
@@ -376,22 +476,20 @@ function App() {
               <div className=''>
                 <p className='m-0'>DNI:</p>
                 <div>
-                  <input type='file' onChange={(e) => handleDocs(e)}/>
-                  <input type='file'/>
+                  <input type='file' name="dniA" onChange={handleInputChangeDniA} />
+                  <input type='file' name="dniB" onChange={handleInputChangeDniB} />
                 </div>
               </div>
               <div className=''>
                 <p className='m-0'>Brevete:</p>
                 <div>
-                  <input type='file' />
-                  <input type='file'/>
+                  <input type='file' name="breveteA" onChange={handleInputChangeBreveteA} />
                 </div>
               </div>
               <div className=''>
                 <p className='m-0'>Antecedentes penales:</p>
                 <div>
-                  <input type="file" onChange={(e) => 
-                  { setImage(e.target.files[0]) }} />
+                  <input type='file' name="breveteB" onChange={handleInputChangeBreveteB} />
                 </div>
               </div>
             </div>
