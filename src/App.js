@@ -3,6 +3,7 @@ import auto from './t-cross.png'
 import { useEffect, useState } from 'react';
 import {APIProvider, Map} from '@vis.gl/react-google-maps';
 import { auth, firestore, storage, getUsers, googleAuthProvider, insertUser, localPersistence } from './firebase'
+import { InlineWidget } from "react-calendly";
 
 function App() {
   const [isOpenCarPopup, setIsOpenCarPopup] = useState(false);
@@ -456,8 +457,10 @@ function App() {
             <div className='pay-close' onClick={successClose}>x</div>
             <p className='mb-0'>Estamos revisando tu pago...</p>
             <p>Elige el <u>día</u> y <u>horario</u> de recojo del auto</p>
-            <div>
-              <div className="calendly-inline-widget" data-url="https://calendly.com/danilojesusv?hide_landing_page_details=1&hide_gdpr_banner=1" style={{minWidth: "320px", height: "50vh"}}></div>
+            <div className='h-50'>
+              <InlineWidget 
+                style={{minWidth: "320px", height: "100% !important"}}
+                url="https://calendly.com/danilojesusv?hide_landing_page_details=1&hide_gdpr_banner=1" />
             </div>
             <p className='mb-0 text-center font-w-bold'>Click aquí ⬆</p>
             <p className='mt-2 mb-0'>Precio aproximado:</p>
